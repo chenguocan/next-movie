@@ -1,0 +1,59 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		}
+	    ,{
+            "path" : "pages/search/search",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "搜索",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/personal/personal",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "电影预告",
+		"navigationBarBackgroundColor": "#58B2DC",
+		"backgroundColor": "#58B2DC"
+	},
+	"tabBar":{
+		"color":"#bfbfbf",
+		"selectedColor":"#58B2DC",
+		"backgroundColor":"white",
+		"list":[
+		{
+			"pagePath":"pages/index/index",
+			"text":"首页",
+			"iconPath":"static/images/index.png",
+			"selectedIconPath":"static/images/index-current.png"
+		},
+		{
+			"pagePath":"pages/search/search",
+			"text":"搜索",
+			"iconPath":"static/images/search.png",
+			"selectedIconPath":"static/images/search-current.png"
+		},
+		{
+			"pagePath":"pages/personal/personal",
+			"text":"个人",
+			"iconPath":"static/images/personal.png",
+			"selectedIconPath":"static/images/personal-current.png"
+		}
+		]
+	}
+}
