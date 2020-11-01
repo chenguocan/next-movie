@@ -19,7 +19,9 @@
 			}
 		},
 		onLoad() {
-
+			uni.request({
+				url:'https://www.imovietrailer.com/superhero/doc.html'
+			})
 		},
 		methods: {
 
