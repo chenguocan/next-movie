@@ -9,12 +9,23 @@
 		<view class="main">
 			<!--超英预告-->
 			<NavTitle image="../../static/icos/hot.png" title="超英预告"></NavTitle>
-			<scroll-view class="movieScroll" scroll-x="true">
-				<view class="movie">
-					<image src="../../static/poster/civilwar.jpg"></image>
-					<view class="movieName">蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠蜘蛛侠</view>
+			<scroll-view class="hotScroll" scroll-x="true" enable-flex="true">
+				<view class="hotList">
+					<view class="hotItem" v-for="hotItem in hotList" :key="hotItem.id">
+						<image :src="hotItem.poster"></image>
+						<view class="movieName">{{hotItem.name}}</view>
+						<view class="hotScore">
+							<image src="../../static/icos/star-yellow.png"></image>
+							<image src="../../static/icos/star-yellow.png"></image>
+							<image src="../../static/icos/star-yellow.png"></image>
+							<image src="../../static/icos/star-yellow.png"></image>
+							<image src="../../static/icos/star-gray.png"></image>
+							<text class="score">{{hotItem.score}}</text>
+						</view>
+					</view>
 				</view>
 			</scroll-view>
+		
 		</view>
 	</view>
 </template>
@@ -27,15 +38,22 @@
 		data() {
 			return {
 				carouselList:[],
+				hotList:[],
 			}
 		},
 		onLoad() {
-			this.getcarouselList();
+			this.getHotList();
+			this.getCarouselList();
 		},
 		methods: {
-			async getcarouselList(){
-				const res=await request("/carousel/list?qq=2622870670","POST");
+			async getCarouselList(){
+				const res=await request("/index/carousel/list?qq=2622870670","POST");
 				this.carouselList=res.data;
+			},
+			async getHotList(){
+				const res=await request("/index/movie/hot?type=superhero&&qq=2622870670","POST");
+				this.hotList=res.data;
+				console.log(this.hotList);
 			}
 		},
 		
@@ -43,6 +61,7 @@
 </script>
 
 <style>
+/*轮播图*/
 .carouselSwiper{
 	width: 100%;
 	height: 440upx;
@@ -54,15 +73,19 @@
 .carouselSwiper swiper-item image{
 	width: 100%;
 }
+/*超英预告*/
 .main{
 	margin-left: 12upx;
 }
-.main .movieScroll{
-	display: inline-block;
+.main .hotScroll .hotList{
+	display: flex;
 }
-.main .movieScroll .movie image{
+.hotItem image{
 	width: 200upx;
 	height: 270upx;
+}
+.hotItem{
+	margin-right: 16upx;
 }
 .movieName{
 	width: 200upx;
@@ -70,5 +93,12 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-
+.hotScore image{
+	width: 20upx;
+	height: 20upx;
+}
+.hotScore .score{
+	margin-left: 6upx;
+	font-size: 13px;
+}
 </style>
