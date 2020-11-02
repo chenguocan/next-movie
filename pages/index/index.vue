@@ -9,51 +9,59 @@
 		<view class="main">
 			<!--超英预告-->
 			<NavTitle image="../../static/icos/hot.png" title="超英预告"></NavTitle>
-			<scroll-view class="hotScroll" scroll-x="true" enable-flex="true">
-				<view class="hotList">
-					<view class="hotItem" v-for="hotItem in hotList" :key="hotItem.id">
-						<image :src="hotItem.poster"></image>
-						<view class="movieName">{{hotItem.name}}</view>
-						<view class="hotScore">
-							<image src="../../static/icos/star-yellow.png"></image>
-							<image src="../../static/icos/star-yellow.png"></image>
-							<image src="../../static/icos/star-yellow.png"></image>
-							<image src="../../static/icos/star-yellow.png"></image>
-							<image src="../../static/icos/star-gray.png"></image>
-							<text class="score">{{hotItem.score}}</text>
-						</view>
+			<scroll-view class="hotSuperHeroScroll" scroll-x="true" enable-flex="true">
+				<view class="hotSuperHeroList">
+					<view class="hotSuperHeroItem" v-for="hotSuperHeroItem in hotSuperHeroList" :key="hotSuperHeroItem.id">
+						<image :src="hotSuperHeroItem.poster"></image>
+						<view class="movieName">{{hotSuperHeroItem.name}}</view>
+						<Score :score="hotSuperHeroItem.score"></Score>
 					</view>
 				</view>
 			</scroll-view>
-		
+			<NavTitle image="../../static/icos/interest.png" title="热门预告"></NavTitle>
+			<view class="trailerList">
+				<view class="trailerItem" v-for="trailerItem in trailerList" :key="trailerItem.id">
+					<video :src="trailerItem.trailer" controls="true"></video>			
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import request from "../../request/request.js"
-	import NavTitle from "../../components/NavTitle/NavTitle.vue"
+	import request from "@/request/request.js"
+	import NavTitle from "@/components/NavTitle.vue"
+	import Score from "@/components/Score.vue"
 	export default {
-		comments:['NavTitle'],
+		components:{
+			NavTitle,
+			Score
+		},
 		data() {
 			return {
 				carouselList:[],
-				hotList:[],
+				hotSuperHeroList:[],
+				trailerList:[],
 			}
 		},
 		onLoad() {
-			this.getHotList();
+			this.getSuperHeroHotList();
 			this.getCarouselList();
+			this.getTrailerList();
 		},
 		methods: {
 			async getCarouselList(){
 				const res=await request("/index/carousel/list?qq=2622870670","POST");
 				this.carouselList=res.data;
 			},
-			async getHotList(){
+			async getSuperHeroHotList(){
 				const res=await request("/index/movie/hot?type=superhero&&qq=2622870670","POST");
-				this.hotList=res.data;
-				console.log(this.hotList);
+				this.hotSuperHeroList=res.data;
+			},
+			async getTrailerList(){
+				const res=await request("/index/movie/hot?type=trailer&&qq=2622870670","POST");
+				this.trailerList=res.data;
+				console.log(this.trailerList);
 			}
 		},
 		
@@ -75,16 +83,16 @@
 }
 /*超英预告*/
 .main{
-	margin-left: 12upx;
+	margin:0 12upx;
 }
-.main .hotScroll .hotList{
+.main .hotSuperHeroScroll .hotSuperHeroList{
 	display: flex;
 }
-.hotItem image{
+.hotSuperHeroItem image{
 	width: 200upx;
 	height: 270upx;
 }
-.hotItem{
+.hotSuperHeroItem{
 	margin-right: 16upx;
 }
 .movieName{
@@ -93,12 +101,17 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-.hotScore image{
-	width: 20upx;
-	height: 20upx;
+/*热门预告*/
+.trailerList{
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
 }
-.hotScore .score{
-	margin-left: 6upx;
-	font-size: 13px;
+.trailerList .trailerItem{
+	margin-top: 12upx;
+}
+.trailerList .trailerItem video{
+	height: 220upx;
+	width: 350upx;
 }
 </style>

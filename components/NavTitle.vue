@@ -11,6 +11,7 @@
 
 <script>
 	export default {
+		name:"NavTitle",
 		props:{
 			image:{
 				type:String,

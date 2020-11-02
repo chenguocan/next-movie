@@ -1,1 +1,0 @@
-<view class="nav-wapper data-v-24eebcb8"><view class="nav-icon data-v-24eebcb8"><image src="{{image}}" class="data-v-24eebcb8"></image></view><view class="nav-title data-v-24eebcb8"><text class="title data-v-24eebcb8">{{title}}</text></view></view>

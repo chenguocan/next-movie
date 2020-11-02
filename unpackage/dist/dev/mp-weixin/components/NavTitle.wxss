@@ -1,0 +1,27 @@
+
+.nav-wapper.data-v-164ee660{
+	width: 100%;
+	height: 80rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.nav-icon.data-v-164ee660{
+	margin-left: 12rpx;
+}
+.nav-icon image.data-v-164ee660{
+	width: 30rpx;
+	height: 30rpx;
+	margin-top: 10rpx;
+}
+.nav-title.data-v-164ee660{
+	margin-left: 12rpx;
+}
+.nav-title .title.data-v-164ee660{
+	font-size: 20px;
+	font-weight: bold;
+}
+

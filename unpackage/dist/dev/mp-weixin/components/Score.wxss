@@ -1,0 +1,10 @@
+
+.scoreItem image{
+	width: 20rpx;
+	height: 20rpx;
+}
+.scoreItem .score{
+	margin-left: 6rpx;
+	font-size: 13px;
+}
+

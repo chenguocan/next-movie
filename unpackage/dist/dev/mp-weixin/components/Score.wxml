@@ -1,0 +1,1 @@
+<view class="scoreItem"><image src="../static/icos/star-yellow.png"></image><image src="../static/icos/star-yellow.png"></image><image src="../static/icos/star-yellow.png"></image><image src="../static/icos/star-yellow.png"></image><image src="../static/icos/star-gray.png"></image><text class="score">{{score}}</text></view>
