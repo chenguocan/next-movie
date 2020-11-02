@@ -1,11 +1,12 @@
 <template>
-	<view class="scoreItem">
-		<image src="../static/icos/star-yellow.png"></image>
-		<image src="../static/icos/star-yellow.png"></image>
-		<image src="../static/icos/star-yellow.png"></image>
-		<image src="../static/icos/star-yellow.png"></image>
-		<image src="../static/icos/star-gray.png"></image>
-		<text class="score">{{score}}</text>
+	<view class="scoreList">
+		<view class="scoreItem" v-for="(yellowItem,yellowIndex) in yellowStar" :key="yellowIndex">
+			<image src="../static/icos/star-yellow.png"></image>
+		</view>
+		<view class="scoreItem" v-for="(grayItem,grayIndex) in grayStar" :key="grayIndex+5">
+			<image src="../static/icos/star-gray.png"></image>
+		</view>
+		<text class="score" v-show="isShow==='yes'">{{score}}</text>
 	</view>
 </template>
 
@@ -15,24 +16,36 @@
 		props:{
 			"score":{
 				type:Number,
-				default:9.9,
+				default:0,
+			},
+			"isShow":{
+				type:String,
+				default:"yes",
 			}
 		},
 		data() {
 			return {
-				
+				yellowStar:0,
+				grayStar:0,
 			};
-		}
+		},
+		created(){
+			this.yellowStar=parseInt(this.score/2);
+			this.grayStar=5-this.yellowStar;
+		},
 	}
 </script>
 
 <style>
-.scoreItem image{
+.scoreList image{
 	width: 20upx;
 	height: 20upx;
 }
-.scoreItem .score{
+.scoreList .score{
 	margin-left: 6upx;
 	font-size: 13px;
+}
+.scoreList .scoreItem{
+	display: inline-block;
 }
 </style>

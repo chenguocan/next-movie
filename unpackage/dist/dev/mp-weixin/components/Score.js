@@ -125,19 +125,29 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
 var _default =
 {
   name: "Score",
   props: {
     "score": {
       type: Number,
-      default: 9.9 } },
+      default: 0 },
+
+    "isShow": {
+      type: String,
+      default: "yes" } },
 
 
   data: function data() {
-    return {};
+    return {
+      yellowStar: 0,
+      grayStar: 0 };
 
-
+  },
+  created: function created() {
+    this.yellowStar = parseInt(this.score / 2);
+    this.grayStar = 5 - this.yellowStar;
   } };exports.default = _default;
 
 /***/ }),

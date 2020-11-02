@@ -1,10 +1,13 @@
 
-.scoreItem image{
+.scoreList image{
 	width: 20rpx;
 	height: 20rpx;
 }
-.scoreItem .score{
+.scoreList .score{
 	margin-left: 6rpx;
 	font-size: 13px;
+}
+.scoreList .scoreItem{
+	display: inline-block;
 }
 

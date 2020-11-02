@@ -14,14 +14,15 @@
 					<view class="hotSuperHeroItem" v-for="hotSuperHeroItem in hotSuperHeroList" :key="hotSuperHeroItem.id">
 						<image :src="hotSuperHeroItem.poster"></image>
 						<view class="movieName">{{hotSuperHeroItem.name}}</view>
-						<Score :score="hotSuperHeroItem.score"></Score>
+						<Score :score="hotSuperHeroItem.score" isShow="yes"></Score>
 					</view>
 				</view>
 			</scroll-view>
+			<!--热门预告-->
 			<NavTitle image="../../static/icos/interest.png" title="热门预告"></NavTitle>
 			<view class="trailerList">
 				<view class="trailerItem" v-for="trailerItem in trailerList" :key="trailerItem.id">
-					<video :src="trailerItem.trailer" controls="true"></video>			
+					<video :src="trailerItem.trailer" :poster="trailerItem.poster" controls="true"></video>			
 				</view>
 			</view>
 		</view>
@@ -61,7 +62,6 @@
 			async getTrailerList(){
 				const res=await request("/index/movie/hot?type=trailer&&qq=2622870670","POST");
 				this.trailerList=res.data;
-				console.log(this.trailerList);
 			}
 		},
 		
