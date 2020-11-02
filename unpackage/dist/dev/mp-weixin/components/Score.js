@@ -136,7 +136,7 @@ var _default =
 
     "isShow": {
       type: String,
-      default: "yes" } },
+      default: "no" } },
 
 
   data: function data() {

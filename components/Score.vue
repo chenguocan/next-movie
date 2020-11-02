@@ -1,9 +1,9 @@
 <template>
 	<view class="scoreList">
-		<view class="scoreItem" v-for="(yellowItem,yellowIndex) in yellowStar" :key="yellowIndex">
+		<view class="scoreItem" v-for="(yellowItem,yellowIndex) in yellowStar" :key="'y'+yellowIndex">
 			<image src="../static/icos/star-yellow.png"></image>
 		</view>
-		<view class="scoreItem" v-for="(grayItem,grayIndex) in grayStar" :key="grayIndex+5">
+		<view class="scoreItem" v-for="(grayItem,grayIndex) in grayStar" :key="'g'+grayIndex">
 			<image src="../static/icos/star-gray.png"></image>
 		</view>
 		<text class="score" v-show="isShow==='yes'">{{score}}</text>
@@ -20,7 +20,7 @@
 			},
 			"isShow":{
 				type:String,
-				default:"yes",
+				default:"no",
 			}
 		},
 		data() {

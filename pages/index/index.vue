@@ -1,7 +1,7 @@
 <template>
 	<view class="page">
 		<!--轮播图-->
-		<swiper class="carouselSwiper">
+		<swiper class="carouselSwiper" autoplay="true">
 			<swiper-item  v-for="(item,index) in carouselList" :key="item.id">
 				<image :src="item.image"></image>
 			</swiper-item>
@@ -25,6 +25,28 @@
 					<video :src="trailerItem.trailer" :poster="trailerItem.poster" controls="true"></video>			
 				</view>
 			</view>
+			<!--猜你喜欢-->
+			<NavTitle image="../../static/icos/guess-u-like.png" title="猜你喜欢"></NavTitle>
+			<view class="likeList">
+				<view class="likeItem">
+					<view class="moviePoster">
+						<image src="../../static/poster/civilwar.jpg"></image>
+					</view>
+					<view class="movieDesc">
+						<text class="movieName">蜘蛛侠</text>
+						<Score></Score>
+						<view class="movieDetail">2018/美国/科幻 动作</view>
+						<view class="movieActors">亨利·卡尔维/亨利·卡尔维/亨利·卡尔维/亨利·卡尔维</view>
+					</view>
+					<view class="praiseMovie">
+						<view class="praiseMe" @click="handlePraise">
+							<image src="../../static/icos/praise.png"></image>
+						</view>
+						<text class="praiseText">点赞</text>
+						<text class="praiseAdd" :animation="praiseAnimation">+1</text>
+					</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -43,9 +65,11 @@
 				carouselList:[],
 				hotSuperHeroList:[],
 				trailerList:[],
+				praiseAnimation:[],
 			}
 		},
 		onLoad() {
+			this.animation=uni.createAnimation();
 			this.getSuperHeroHotList();
 			this.getCarouselList();
 			this.getTrailerList();
@@ -62,6 +86,18 @@
 			async getTrailerList(){
 				const res=await request("/index/movie/hot?type=trailer&&qq=2622870670","POST");
 				this.trailerList=res.data;
+			},
+			handlePraise(){
+				this.animation.translateY(-60).opacity(1).step({
+					duration:400
+				});
+				this.praiseAnimation=this.animation.export();
+				let time=setTimeout(function(){
+					this.animation.translateY(0).opacity(0).step({
+						duration:0
+					});
+					this.praiseAnimation=this.animation.export();
+				}.bind(this),500);
 			}
 		},
 		
@@ -113,5 +149,42 @@
 .trailerList .trailerItem video{
 	height: 220upx;
 	width: 350upx;
+}
+/*猜你喜欢*/
+.likeList .likeItem{
+	display: flex;
+}
+.likeItem{
+	width: 100%;
+}
+.likeItem  image{
+	width: 200upx;
+	height: 270upx;
+}
+.likeItem .moviePoster{
+	margin-right: 20upx;
+}
+.movieDetail,.movieActors{
+	color:#808080;
+}
+.praiseMovie{
+	border-left:2px dashed #808080; 
+	width: 350upx;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.praiseMe image{
+	width: 50upx;
+	height: 50upx;
+}
+.praiseText{
+	font-size: 12upx;
+	color:#ffc634;
+}
+.praiseAdd{
+	opacity: 0;
+	color:#ffc634;
 }
 </style>

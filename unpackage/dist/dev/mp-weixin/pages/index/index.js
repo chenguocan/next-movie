@@ -137,7 +137,29 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 19));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -181,10 +203,12 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
     return {
       carouselList: [],
       hotSuperHeroList: [],
-      trailerList: [] };
+      trailerList: [],
+      praiseAnimation: [] };
 
   },
   onLoad: function onLoad() {
+    this.animation = uni.createAnimation();
     this.getSuperHeroHotList();
     this.getCarouselList();
     this.getTrailerList();
@@ -201,7 +225,20 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
     getTrailerList: function getTrailerList() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.next = 2;return (
                   (0, _request.default)("/index/movie/hot?type=trailer&&qq=2622870670", "POST"));case 2:res = _context3.sent;
                 _this3.trailerList = res.data;case 4:case "end":return _context3.stop();}}}, _callee3);}))();
+    },
+    handlePraise: function handlePraise() {
+      this.animation.translateY(-60).opacity(1).step({
+        duration: 400 });
+
+      this.praiseAnimation = this.animation.export();
+      var time = setTimeout(function () {
+        this.animation.translateY(0).opacity(0).step({
+          duration: 0 });
+
+        this.praiseAnimation = this.animation.export();
+      }.bind(this), 500);
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 /* 19 */,

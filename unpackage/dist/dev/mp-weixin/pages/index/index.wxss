@@ -69,6 +69,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*轮播图*/
 .carouselSwiper{
 	width: 100%;
@@ -120,5 +156,53 @@
 .trailerList .trailerItem video{
 	height: 220rpx;
 	width: 350rpx;
+}
+/*猜你喜欢*/
+.likeList .likeItem{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.likeItem{
+	width: 100%;
+}
+.likeItem  image{
+	width: 200rpx;
+	height: 270rpx;
+}
+.likeItem .moviePoster{
+	margin-right: 20rpx;
+}
+.movieDetail,.movieActors{
+	color:#808080;
+}
+.praiseMovie{
+	border-left:2px dashed #808080; 
+	width: 350rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+}
+.praiseMe image{
+	width: 50rpx;
+	height: 50rpx;
+}
+.praiseText{
+	font-size: 12rpx;
+	color:#ffc634;
+}
+.praiseAdd{
+	opacity: 0;
+	color:#ffc634;
 }
 
