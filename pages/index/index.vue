@@ -28,15 +28,15 @@
 			<!--猜你喜欢-->
 			<NavTitle image="../../static/icos/guess-u-like.png" title="猜你喜欢"></NavTitle>
 			<view class="likeList">
-				<view class="likeItem">
+				<view class="likeItem" v-for="guessLikeItem in guessLikeList" :key="guessLikeItem.id">
 					<view class="moviePoster">
-						<image src="../../static/poster/civilwar.jpg"></image>
+						<image :src="guessLikeItem.poster"></image>
 					</view>
 					<view class="movieDesc">
-						<text class="movieName">蜘蛛侠</text>
-						<Score></Score>
-						<view class="movieDetail">2018/美国/科幻 动作</view>
-						<view class="movieActors">亨利·卡尔维/亨利·卡尔维/亨利·卡尔维/亨利·卡尔维</view>
+						<text class="movieName">{{guessLikeItem.name}}</text>
+						<Score :score="guessLikeItem.score"></Score>
+						<view class="movieDetail">{{guessLikeItem.basicInfo}}</view>
+						<view class="movieActors"></view>
 					</view>
 					<view class="praiseMovie">
 						<view class="praiseMe" @click="handlePraise">
@@ -65,14 +65,15 @@
 				carouselList:[],
 				hotSuperHeroList:[],
 				trailerList:[],
+				guessLikeList:[],
 				praiseAnimation:[],
 			}
 		},
 		onLoad() {
-			this.animation=uni.createAnimation();
 			this.getSuperHeroHotList();
 			this.getCarouselList();
 			this.getTrailerList();
+			this.getGuessLikeList();
 		},
 		methods: {
 			async getCarouselList(){
@@ -87,7 +88,13 @@
 				const res=await request("/index/movie/hot?type=trailer&&qq=2622870670","POST");
 				this.trailerList=res.data;
 			},
+			async getGuessLikeList(){
+				const res=await request("/index/guessULike?qq=2622870670","Post");
+				this.guessLikeList=res.data;
+				console.log(this.guessLikeList);
+			},
 			handlePraise(){
+				this.animation=uni.createAnimation();
 				this.animation.translateY(-60).opacity(1).step({
 					duration:400
 				});
@@ -156,9 +163,10 @@
 }
 .likeItem{
 	width: 100%;
+	margin-bottom: 20upx ;
 }
 .likeItem  image{
-	width: 200upx;
+	width: 220upx;
 	height: 270upx;
 }
 .likeItem .moviePoster{
@@ -169,7 +177,7 @@
 }
 .praiseMovie{
 	border-left:2px dashed #808080; 
-	width: 350upx;
+	width: 300upx;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

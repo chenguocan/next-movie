@@ -105,6 +105,13 @@
 
 
 
+
+
+
+
+
+
+
 /*轮播图*/
 .carouselSwiper{
 	width: 100%;
@@ -165,9 +172,10 @@
 }
 .likeItem{
 	width: 100%;
+	margin-bottom: 20rpx;
 }
 .likeItem  image{
-	width: 200rpx;
+	width: 220rpx;
 	height: 270rpx;
 }
 .likeItem .moviePoster{
@@ -178,7 +186,7 @@
 }
 .praiseMovie{
 	border-left:2px dashed #808080; 
-	width: 350rpx;
+	width: 300rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
