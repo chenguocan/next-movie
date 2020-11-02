@@ -1,0 +1,41 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/search/search",
+    "pages/personal/personal"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "电影预告",
+    "navigationBarBackgroundColor": "#58B2DC",
+    "backgroundColor": "#58B2DC"
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "#58B2DC",
+    "backgroundColor": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/images/index.png",
+        "selectedIconPath": "static/images/index-current.png"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "text": "搜索",
+        "iconPath": "static/images/search.png",
+        "selectedIconPath": "static/images/search-current.png"
+      },
+      {
+        "pagePath": "pages/personal/personal",
+        "text": "个人",
+        "iconPath": "static/images/personal.png",
+        "selectedIconPath": "static/images/personal-current.png"
+      }
+    ]
+  },
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
+}
