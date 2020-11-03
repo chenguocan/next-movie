@@ -191,9 +191,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.js */ 11));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var NavTitle = function NavTitle() {__webpack_require__.e(/*! require.ensure | components/NavTitle */ "components/NavTitle").then((function () {return resolve(__webpack_require__(/*! @/components/NavTitle.vue */ 36));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Score = function Score() {__webpack_require__.e(/*! require.ensure | components/Score */ "components/Score").then((function () {return resolve(__webpack_require__(/*! @/components/Score.vue */ 43));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.js */ 11));
 
 
+var _requestLoading = _interopRequireDefault(__webpack_require__(/*! @/request/requestLoading.js */ 54));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var NavTitle = function NavTitle() {__webpack_require__.e(/*! require.ensure | components/NavTitle */ "components/NavTitle").then((function () {return resolve(__webpack_require__(/*! @/components/NavTitle.vue */ 36));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Score = function Score() {__webpack_require__.e(/*! require.ensure | components/Score */ "components/Score").then((function () {return resolve(__webpack_require__(/*! @/components/Score.vue */ 43));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: {
     NavTitle: NavTitle,
@@ -206,9 +207,7 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
       trailerList: [],
       guessLikeList: [],
       praiseAnimation: {},
-      praiseAnimationArray: [
-      {}, {}, {}, {}, {}] };
-
+      praiseAnimationArray: [] };
 
   },
   onLoad: function onLoad() {
@@ -218,10 +217,20 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
     this.getGuessLikeList();
   },
   onUnload: function onUnload() {
-
+    this.praiseAnimationArray = [];
     this.praiseAnimation = {};
   },
+  onPullDownRefresh: function onPullDownRefresh() {
+    this.refresh();
+  },
   methods: {
+    refresh: function refresh() {
+      uni.showLoading({
+        mask: true });
+
+      uni.startPullDownRefresh();
+      this.getGuessLikeLoading();
+    },
     getCarouselList: function getCarouselList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   (0, _request.default)("/index/carousel/list?qq=2622870670", "POST"));case 2:res = _context.sent;
                 _this.carouselList = res.data;case 4:case "end":return _context.stop();}}}, _callee);}))();
@@ -237,6 +246,10 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
     getGuessLikeList: function getGuessLikeList() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
                   (0, _request.default)("/index/guessULike?qq=2622870670", "Post"));case 2:res = _context4.sent;
                 _this4.guessLikeList = res.data;case 4:case "end":return _context4.stop();}}}, _callee4);}))();
+    },
+    getGuessLikeLoading: function getGuessLikeLoading() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var res;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.next = 2;return (
+                  (0, _requestLoading.default)("/index/guessULike?qq=2622870670", "Post"));case 2:res = _context5.sent;
+                _this5.guessLikeList = res.data;case 4:case "end":return _context5.stop();}}}, _callee5);}))();
     },
     handlePraise: function handlePraise(e) {
       var index = e.currentTarget.dataset.gindex;

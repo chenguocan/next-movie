@@ -6,7 +6,8 @@
 				"navigationBarTitleText": "首页",
 				"app-plus":{
 					"titleNView":false
-				}
+				},
+				"enablePullDownRefresh":true
 			}
 		}
 	    ,{

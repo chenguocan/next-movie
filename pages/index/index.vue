@@ -55,6 +55,7 @@
 	import request from "@/request/request.js"
 	import NavTitle from "@/components/NavTitle.vue"
 	import Score from "@/components/Score.vue"
+	import requestLoading from "@/request/requestLoading.js"
 	export default {
 		components:{
 			NavTitle,
@@ -67,9 +68,7 @@
 				trailerList:[],
 				guessLikeList:[],
 				praiseAnimation:{},
-				praiseAnimationArray:[
-					{},{},{},{},{}
-				],
+				praiseAnimationArray:[],
 			}
 		},
 		onLoad() {
@@ -79,10 +78,20 @@
 			this.getGuessLikeList();
 		},
 		onUnload(){
-			
+			this.praiseAnimationArray=[];
 			this.praiseAnimation={};
 		},
+		onPullDownRefresh(){
+			this.refresh();
+		},
 		methods: {
+			refresh(){
+				uni.showLoading({
+					mask:true
+				})
+				uni.startPullDownRefresh();
+				this.getGuessLikeLoading();
+			},
 			async getCarouselList(){
 				const res=await request("/index/carousel/list?qq=2622870670","POST");
 				this.carouselList=res.data;
@@ -97,6 +106,10 @@
 			},
 			async getGuessLikeList(){
 				const res=await request("/index/guessULike?qq=2622870670","Post");
+				this.guessLikeList=res.data;
+			},
+			async getGuessLikeLoading(){
+				const res=await requestLoading("/index/guessULike?qq=2622870670","Post");
 				this.guessLikeList=res.data;
 			},
 			handlePraise(e){
@@ -142,14 +155,14 @@
 	display: flex;
 }
 .hotSuperHeroItem image{
-	width: 200upx;
-	height: 270upx;
+	width: 250upx;
+	height: 250upx;
 }
 .hotSuperHeroItem{
 	margin-right: 16upx;
 }
 .movieName{
-	width: 200upx;
+	width: 250upx;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -176,8 +189,9 @@
 	margin-bottom: 20upx ;
 }
 .likeItem  image{
-	width: 220upx;
+	width: 250upx;
 	height: 270upx;
+	border-radius: 10upx;
 }
 .likeItem .moviePoster{
 	margin-right: 20upx;

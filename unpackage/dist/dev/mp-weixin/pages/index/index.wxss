@@ -122,6 +122,19 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*轮播图*/
 .carouselSwiper{
 	width: 100%;
@@ -144,14 +157,14 @@
 	display: flex;
 }
 .hotSuperHeroItem image{
-	width: 200rpx;
-	height: 270rpx;
+	width: 250rpx;
+	height: 250rpx;
 }
 .hotSuperHeroItem{
 	margin-right: 16rpx;
 }
 .movieName{
-	width: 200rpx;
+	width: 250rpx;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -185,8 +198,9 @@
 	margin-bottom: 20rpx;
 }
 .likeItem  image{
-	width: 220rpx;
+	width: 250rpx;
 	height: 270rpx;
+	border-radius: 10rpx;
 }
 .likeItem .moviePoster{
 	margin-right: 20rpx;
