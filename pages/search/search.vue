@@ -3,42 +3,68 @@
 		<!--搜索框-->
 		<view class="search">
 			<image  class="searchIco" src="../../static/icos/search.png"></image>
-			<input  class="searchInput" type="text" maxlength="10" confirm-type="search" placeholder="搜索预告片"/>
+			<input  class="searchInput" type="text" v-model="searchValue" maxlength="10" confirm-type="search" placeholder="搜索预告片" @confirm="submitSearch"/>
 		</view>
 		<!--搜索结果列表-->
 		<view class="searchTrailerList">
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
-			<image src="../../static/poster/civilwar.jpg"></image>
+			<view class="trailerItem" v-for="trailerItem in trailerList" :key="trailerItem.id">
+				<image :src="trailerItem.poster" class="poster"></image>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import request from "@/request/request.js";
+	import requestLoading from "@/request/requestLoading.js";
 	export default {
 		data() {
 			return {
-				
+				trailerList:[],
+				searchValue:'',
+				page:2,
+				pageSize:7,
+				total:0,
 			}
 		},
 		onLoad(){
 			this.getSearchList();
 		},
+		onUnload(){
+			this.page=2;
+			this.total=0;
+		},
+		onReachBottom(){
+			uni.showLoading({
+				mask:true,
+				title:'Loading'
+			})
+			 this.refresh();
+		},
 		methods: {
-			async getSearchList(){
-				const res=await request("/search/list","POST");
-				console.log(res);
+			async getSearchList(keywords,page=1,pageSize=14){
+				if(!keywords){
+					const res=await requestLoading(`/search/list?keywords=&&page=${page}&&pageSize=${pageSize}&&qq=2622870670`,"POST");
+					console.log(res.data);
+					this.total=res.data.total;
+					this.trailerList=res.data.rows;
+					console.log(this.trailerList);
+					return;
+				}
+				const res=await requestLoading(`/search/list?keywords=${keywords}&&page=${page}&&pageSize=${pageSize}&&qq=2622870670`,"POST");
+				this.trailerList=res.data.rows;
+			},
+			submitSearch(){
+				this.getSearchList(this.searchValue);
+			},
+			async refresh(){
+				let temptrailerList=this.trailerList;
+				this.page++;
+				if(this.page > this.total){
+					return;
+				}
+				await this.getSearchList(null,this.page,this.pageSize);
+				this.trailerList=temptrailerList.concat(this.trailerList);
 			}
 		}
 	}
@@ -70,10 +96,13 @@
 /*预告片*/
 .searchTrailerList{
 	padding-top:100upx;
-	margin-left: 20upx;
+	margin-left: 30upx;
+	display: flex;
+	flex-wrap: wrap;
 }
-.searchTrailerList>image{
-	height: 300upx;
+
+.searchTrailerList>.trailerItem>.poster{
+	height: 260upx;
 	width: 220upx;
 	margin-bottom: 15upx;
 	margin-right: 20upx;
