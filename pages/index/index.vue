@@ -28,22 +28,22 @@
 			<!--猜你喜欢-->
 			<NavTitle image="../../static/icos/guess-u-like.png" title="猜你喜欢"></NavTitle>
 			<view class="likeList">
-				<view class="likeItem" v-for="guessLikeItem in guessLikeList" :key="guessLikeItem.id">
+				<view class="likeItem" v-for="(guessLikeItem,gIndex) in guessLikeList" :key="guessLikeItem.id">
 					<view class="moviePoster">
 						<image :src="guessLikeItem.poster"></image>
 					</view>
 					<view class="movieDesc">
-						<text class="movieName">{{guessLikeItem.name}}</text>
+						<view class="movieName">{{guessLikeItem.name}}</view>
 						<Score :score="guessLikeItem.score"></Score>
 						<view class="movieDetail">{{guessLikeItem.basicInfo}}</view>
-						<view class="movieActors"></view>
+						<view class="movieTime">{{guessLikeItem.releaseDate}}</view>
 					</view>
 					<view class="praiseMovie">
-						<view class="praiseMe" @click="handlePraise">
+						<view class="praiseMe" :data-gindex="gIndex" @click="handlePraise">
 							<image src="../../static/icos/praise.png"></image>
 						</view>
 						<text class="praiseText">点赞</text>
-						<text class="praiseAdd" :animation="praiseAnimation">+1</text>
+						<text class="praiseAdd" :animation="praiseAnimationArray[gIndex]">+1</text>
 					</view>
 				</view>
 			</view>
@@ -66,7 +66,10 @@
 				hotSuperHeroList:[],
 				trailerList:[],
 				guessLikeList:[],
-				praiseAnimation:[],
+				praiseAnimation:{},
+				praiseAnimationArray:[
+					{},{},{},{},{}
+				],
 			}
 		},
 		onLoad() {
@@ -74,6 +77,10 @@
 			this.getCarouselList();
 			this.getTrailerList();
 			this.getGuessLikeList();
+		},
+		onUnload(){
+			
+			this.praiseAnimation={};
 		},
 		methods: {
 			async getCarouselList(){
@@ -91,21 +98,24 @@
 			async getGuessLikeList(){
 				const res=await request("/index/guessULike?qq=2622870670","Post");
 				this.guessLikeList=res.data;
-				console.log(this.guessLikeList);
 			},
-			handlePraise(){
+			handlePraise(e){
+				let index=e.currentTarget.dataset.gindex;
 				this.animation=uni.createAnimation();
 				this.animation.translateY(-60).opacity(1).step({
 					duration:400
 				});
-				this.praiseAnimation=this.animation.export();
+				this.praiseAnimation=this.animation;
+				//this.praiseAnimationArray[index]=this.praiseAnimation.export();
+				this.$set(this.praiseAnimationArray,index,this.praiseAnimation.export());
 				let time=setTimeout(function(){
 					this.animation.translateY(0).opacity(0).step({
 						duration:0
 					});
-					this.praiseAnimation=this.animation.export();
+					this.praiseAnimation=this.animation;
+					this.$set(this.praiseAnimationArray,index,this.praiseAnimation.export());
 				}.bind(this),500);
-			}
+			}	
 		},
 		
 	}
@@ -172,12 +182,17 @@
 .likeItem .moviePoster{
 	margin-right: 20upx;
 }
-.movieDetail,.movieActors{
+.movieDetail,.movieTime{
+	font-size: 14px;
 	color:#808080;
+}
+.movieDesc{
+	width: 400upx;
+	margin-right: 15upx;	
 }
 .praiseMovie{
 	border-left:2px dashed #808080; 
-	width: 300upx;
+	width: 250upx;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -188,7 +203,7 @@
 	height: 50upx;
 }
 .praiseText{
-	font-size: 12upx;
+	font-size: 16px;
 	color:#ffc634;
 }
 .praiseAdd{

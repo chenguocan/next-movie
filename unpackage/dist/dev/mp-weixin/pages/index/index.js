@@ -205,7 +205,10 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
       hotSuperHeroList: [],
       trailerList: [],
       guessLikeList: [],
-      praiseAnimation: [] };
+      praiseAnimation: {},
+      praiseAnimationArray: [
+      {}, {}, {}, {}, {}] };
+
 
   },
   onLoad: function onLoad() {
@@ -213,6 +216,10 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
     this.getCarouselList();
     this.getTrailerList();
     this.getGuessLikeList();
+  },
+  onUnload: function onUnload() {
+
+    this.praiseAnimation = {};
   },
   methods: {
     getCarouselList: function getCarouselList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
@@ -229,20 +236,23 @@ var _request = _interopRequireDefault(__webpack_require__(/*! @/request/request.
     },
     getGuessLikeList: function getGuessLikeList() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:_context4.next = 2;return (
                   (0, _request.default)("/index/guessULike?qq=2622870670", "Post"));case 2:res = _context4.sent;
-                _this4.guessLikeList = res.data;
-                console.log(_this4.guessLikeList);case 5:case "end":return _context4.stop();}}}, _callee4);}))();
+                _this4.guessLikeList = res.data;case 4:case "end":return _context4.stop();}}}, _callee4);}))();
     },
-    handlePraise: function handlePraise() {
+    handlePraise: function handlePraise(e) {
+      var index = e.currentTarget.dataset.gindex;
       this.animation = uni.createAnimation();
       this.animation.translateY(-60).opacity(1).step({
         duration: 400 });
 
-      this.praiseAnimation = this.animation.export();
+      this.praiseAnimation = this.animation;
+      //this.praiseAnimationArray[index]=this.praiseAnimation.export();
+      this.$set(this.praiseAnimationArray, index, this.praiseAnimation.export());
       var time = setTimeout(function () {
         this.animation.translateY(0).opacity(0).step({
           duration: 0 });
 
-        this.praiseAnimation = this.animation.export();
+        this.praiseAnimation = this.animation;
+        this.$set(this.praiseAnimationArray, index, this.praiseAnimation.export());
       }.bind(this), 500);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
