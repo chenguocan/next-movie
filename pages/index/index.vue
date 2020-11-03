@@ -105,11 +105,11 @@
 				this.trailerList=res.data;
 			},
 			async getGuessLikeList(){
-				const res=await request("/index/guessULike?qq=2622870670","Post");
+				const res=await request("/index/guessULike?qq=2622870670","POST");
 				this.guessLikeList=res.data;
 			},
 			async getGuessLikeLoading(){
-				const res=await requestLoading("/index/guessULike?qq=2622870670","Post");
+				const res=await requestLoading("/index/guessULike?qq=2622870670","POST");
 				this.guessLikeList=res.data;
 			},
 			handlePraise(e){
@@ -135,93 +135,5 @@
 </script>
 
 <style>
-/*轮播图*/
-.carouselSwiper{
-	width: 100%;
-	height: 440upx;
-}
-.carouselSwiper swiper-item{
-	width: 100%;
-	height: 100%;
-}
-.carouselSwiper swiper-item image{
-	width: 100%;
-}
-/*超英预告*/
-.main{
-	margin:0 12upx;
-}
-.main .hotSuperHeroScroll .hotSuperHeroList{
-	display: flex;
-}
-.hotSuperHeroItem image{
-	width: 250upx;
-	height: 250upx;
-}
-.hotSuperHeroItem{
-	margin-right: 16upx;
-}
-.movieName{
-	width: 250upx;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-/*热门预告*/
-.trailerList{
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-}
-.trailerList .trailerItem{
-	margin-top: 12upx;
-}
-.trailerList .trailerItem video{
-	height: 220upx;
-	width: 350upx;
-}
-/*猜你喜欢*/
-.likeList .likeItem{
-	display: flex;
-}
-.likeItem{
-	width: 100%;
-	margin-bottom: 20upx ;
-}
-.likeItem  image{
-	width: 250upx;
-	height: 270upx;
-	border-radius: 10upx;
-}
-.likeItem .moviePoster{
-	margin-right: 20upx;
-}
-.movieDetail,.movieTime{
-	font-size: 14px;
-	color:#808080;
-}
-.movieDesc{
-	width: 400upx;
-	margin-right: 15upx;	
-}
-.praiseMovie{
-	border-left:2px dashed #808080; 
-	width: 250upx;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
-.praiseMe image{
-	width: 50upx;
-	height: 50upx;
-}
-.praiseText{
-	font-size: 16px;
-	color:#ffc634;
-}
-.praiseAdd{
-	opacity: 0;
-	color:#ffc634;
-}
+@import url("index.css");
 </style>
