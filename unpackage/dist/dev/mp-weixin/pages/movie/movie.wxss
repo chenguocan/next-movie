@@ -55,6 +55,52 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*视频播放*/
 .movie{
 	display: -webkit-box;
@@ -131,9 +177,43 @@
 	        align-items: center;
 }
 .scoreDetail .scoreInfo .score{
-	color:yellow;
+	color:#ffc233;
 	font-weight: bold;
 	font-size: 22px;
 	margin-right: 40rpx;
+}
+/*剧情简介*/
+.plot,.actorList{
+	padding:20rpx;
+	background-color: #f7f4f8;
+}
+.title{
+	color:darkgray;
+}
+/*演职人员*/
+.movieGroup{
+	margin-top:10rpx;
+}
+.movieGroup .photoItem .photo{
+	height: 300rpx;
+	width: 200rpx;
+	margin-right: 20rpx;
+}
+.movieGroup .photoList{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+}
+.movieGroup .photoList .actName{
+	width: 200rpx;
+	text-align: center;
+	color:darkgray;
+}
+.movieGroup .photoList .name{
+	width: 200rpx;
+	color:darkgray;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 

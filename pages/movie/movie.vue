@@ -15,7 +15,7 @@
 				<text class="basicInfo">{{trailerInfo.releaseDate}}</text>
 				<view class="scoreDetail">
 					<view class="scoreTitle" v-if="trailerInfo.score>=0">
-						评分:<Score :score="trailerInfo.score"></Score>
+						综合评分:<Score :score="trailerInfo.score"></Score>
 					</view>
 					<view class="scoreInfo">
 						<text class="score">{{trailerInfo.score}}</text>
@@ -24,34 +24,80 @@
 				</view>
 			</view>
 		</view>
+		<Separator></Separator>
+		<!--剧情简介-->
+		<view class="plot">
+			<view class="title">剧情简介</view>
+			<text class="synopsis">
+				{{trailerInfo.plotDesc}}
+			</text>
+		</view>
+		<Separator></Separator>
+		<!--演职人员-->
+		<view class="actorList">
+			<view class="title">演职人员</view>
+			<scroll-view class="movieGroup" scroll-x="true">
+				<view class="photoList">
+					<view class="photoItem" v-for="directorItem in directorList" :key="directorItem.staffId">
+						<image class="photo" :src="directorItem.photo"></image>
+						<view class="actName">{{directorItem.actName}}</view>
+						<view class="name">{{directorItem.name}}</view>
+					</view>
+					<view class="photoItem" v-for="actorItem in actorList" :key="actorItem.staffId">
+						<image class="photo" :src="actorItem.photo"></image>
+						<view class="actName">{{actorItem.actName}}</view>
+						<view class="name">{{actorItem.name}}</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
 	</view>
 </template>
 
 <script>
 	import request from "@/request/request.js"
 	import Score from "@/components/Score.vue"
+	import Separator from "@/components/Separator.vue"
 	export default{
 		components:{
-			Score
+			Score,
+			Separator
 		},
 		data(){
 			return{
 				currentTrailer:'',
 				trailerInfo:[],
+				actorList:[],
+				directorList:[],
 			}
 		},
 		onLoad(options){
+			uni.setNavigationBarColor({
+				frontColor:'#ffffff',
+				backgroundColor:'#666666'
+			});
 			this.currentTrailer=options.trailerId;
 			this.getCurrentTrailer();
+			this.getActors();
+			this.getDirector();
 		},
 		methods:{
 			async getCurrentTrailer(){
 				const res=await request(`/search/trailer/${this.currentTrailer}?qq=2622870670`,"POST");
 				this.trailerInfo=res.data;
 				console.log(this.trailerInfo);
+			},
+			async getActors(){
+				const res=await request(`/search/staff/${this.currentTrailer}/2?qq=2622870670`,"POST");
+				this.actorList=res.data;
+			},
+			async getDirector(){
+				const res=await request(`/search/staff/${this.currentTrailer}/1?qq=2622870670`,"POST");
+				this.directorList=res.data;
+				console.log(res.data);
 			}
-		}
-	}
+		},
+}
 </script>
 
 <style>
@@ -110,9 +156,43 @@
 	align-items: center;
 }
 .scoreDetail .scoreInfo .score{
-	color:yellow;
+	color:#ffc233;
 	font-weight: bold;
 	font-size: 22px;
 	margin-right: 40upx;
+}
+/*剧情简介*/
+.plot,.actorList{
+	padding:20upx;
+	background-color: #f7f4f8;
+}
+.title{
+	color:darkgray;
+}
+/*演职人员*/
+.movieGroup{
+	margin-top:10upx;
+}
+
+.movieGroup .photoItem .photo{
+	height: 300upx;
+	width: 200upx;
+	margin-right: 20upx;
+}
+.movieGroup .photoList{
+	display: flex;
+}
+
+.movieGroup .photoList .actName{
+	width: 200upx;
+	text-align: center;
+	color:darkgray;
+}
+.movieGroup .photoList .name{
+	width: 200upx;
+	color:darkgray;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 </style>

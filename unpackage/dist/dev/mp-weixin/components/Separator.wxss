@@ -1,0 +1,9 @@
+
+.lineBox.data-v-d70284cc{
+	margin: 0 20rpx;
+}
+.line.data-v-d70284cc{
+	width: 100%;
+	border-bottom: 1px solid  #ddd8dc;
+}
+
