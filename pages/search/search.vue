@@ -8,7 +8,9 @@
 		<!--搜索结果列表-->
 		<view class="searchTrailerList">
 			<view class="trailerItem" v-for="trailerItem in trailerList" :key="trailerItem.id">
-				<image :src="trailerItem.poster" class="poster"></image>
+				<navigator :url="'../movie/movie?trailerId=' + trailerItem.id" open-type="navigate">
+					<image :src="trailerItem.poster" class="poster"></image>
+				</navigator>
 			</view>
 		</view>
 	</view>
@@ -35,27 +37,18 @@
 			this.total=0;
 		},
 		onReachBottom(){
-			uni.showLoading({
-				mask:true,
-				title:'Loading'
-			})
-			 this.refresh();
+			this.refresh();
 		},
 		methods: {
 			async getSearchList(keywords,page=1,pageSize=14){
 				if(!keywords){
 					const res=await requestLoading(`/search/list?keywords=&&page=${page}&&pageSize=${pageSize}&&qq=2622870670`,"POST");
-					console.log(res.data);
 					this.total=res.data.total;
 					this.trailerList=res.data.rows;
-					console.log(this.trailerList);
 					return;
 				}
 				const res=await requestLoading(`/search/list?keywords=${keywords}&&page=${page}&&pageSize=${pageSize}&&qq=2622870670`,"POST");
 				this.trailerList=res.data.rows;
-			},
-			submitSearch(){
-				this.getSearchList(this.searchValue);
 			},
 			async refresh(){
 				let temptrailerList=this.trailerList;
@@ -63,9 +56,16 @@
 				if(this.page > this.total){
 					return;
 				}
+				uni.showLoading({
+					mask:true,
+					title:'Loading'
+				})
 				await this.getSearchList(null,this.page,this.pageSize);
 				this.trailerList=temptrailerList.concat(this.trailerList);
-			}
+			},
+			submitSearch(){
+				this.getSearchList(this.searchValue);
+			},
 		}
 	}
 </script>
@@ -101,7 +101,7 @@
 	flex-wrap: wrap;
 }
 
-.searchTrailerList>.trailerItem>.poster{
+.searchTrailerList>.trailerItem .poster{
 	height: 260upx;
 	width: 220upx;
 	margin-bottom: 15upx;

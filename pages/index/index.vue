@@ -2,8 +2,10 @@
 	<view class="page">
 		<!--轮播图-->
 		<swiper class="carouselSwiper" autoplay="true">
-			<swiper-item  v-for="(item,index) in carouselList" :key="item.id">
-				<image :src="item.image"></image>
+			<swiper-item  v-for="(carouselItem,index) in carouselList" :key="carouselItem.id">
+				<navigator :url="'../movie/movie?trailerId=' + carouselItem.movieId" open-type="navigate">
+					<image :src="carouselItem.image"></image>
+				</navigator>
 			</swiper-item>
 		</swiper>
 		<view class="main">
@@ -12,7 +14,9 @@
 			<scroll-view class="hotSuperHeroScroll" scroll-x="true" enable-flex="true">
 				<view class="hotSuperHeroList">
 					<view class="hotSuperHeroItem" v-for="hotSuperHeroItem in hotSuperHeroList" :key="hotSuperHeroItem.id">
-						<image :src="hotSuperHeroItem.poster"></image>
+						<navigator :url="'../movie/movie?trailerId=' + hotSuperHeroItem.id" open-type="navigate">
+							<image :src="hotSuperHeroItem.poster"></image>
+						</navigator>
 						<view class="movieName">{{hotSuperHeroItem.name}}</view>
 						<Score :score="hotSuperHeroItem.score" isShow="yes"></Score>
 					</view>
@@ -30,7 +34,9 @@
 			<view class="likeList">
 				<view class="likeItem" v-for="(guessLikeItem,gIndex) in guessLikeList" :key="guessLikeItem.id">
 					<view class="moviePoster">
-						<image :src="guessLikeItem.poster"></image>
+						<navigator :url="'../movie/movie?trailerId=' + guessLikeItem.id" open-type="navigate">
+							<image :src="guessLikeItem.poster"></image>
+						</navigator>
 					</view>
 					<view class="movieDesc">
 						<view class="movieName">{{guessLikeItem.name}}</view>
@@ -128,7 +134,7 @@
 					this.praiseAnimation=this.animation;
 					this.$set(this.praiseAnimationArray,index,this.praiseAnimation.export());
 				}.bind(this),500);
-			}	
+			},
 		},
 		
 	}

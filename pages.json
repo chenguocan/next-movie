@@ -27,7 +27,16 @@
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+		{
+		    "path" : "pages/movie/movie",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "电影详情页",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
