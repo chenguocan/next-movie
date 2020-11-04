@@ -42,6 +42,18 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "components/Cover",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "照片",
+                "enablePullDownRefresh": false,
+				"titleNView":{
+					"type":"transparent"
+				}
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",

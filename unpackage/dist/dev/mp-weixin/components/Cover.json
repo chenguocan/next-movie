@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "照片",
+  "enablePullDownRefresh": false,
+  "titleNView": {
+    "type": "transparent"
+  },
+  "usingComponents": {}
+}
