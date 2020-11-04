@@ -16,7 +16,7 @@
 		props:{
 			"score":{
 				type:Number,
-				default:0,
+				default:1,
 			},
 			"isShow":{
 				type:String,
@@ -29,7 +29,7 @@
 				grayStar:0,
 			};
 		},
-		created(){
+		mounted(){
 			this.yellowStar=parseInt(this.score/2);
 			this.grayStar=5-this.yellowStar;
 		},

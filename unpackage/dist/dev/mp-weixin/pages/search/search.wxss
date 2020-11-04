@@ -1,0 +1,118 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*搜索框*/
+.search{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	width: 100%;
+	height: 100rpx;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	background-color: #f7f5f8;
+	position: fixed;
+	z-index:10;
+}
+.searchIco{
+	width: 40rpx;
+	height: 40rpx;	
+	padding:10rpx;
+}
+.searchInput{
+	background-color: #efefef;
+	height: 40rpx;
+	width: 500rpx;
+	padding:10rpx;
+}
+/*预告片*/
+.searchTrailerList{
+	padding-top:100rpx;
+	margin-left: 30rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	        flex-wrap: wrap;
+}
+.searchTrailerList>.trailerItem .poster{
+	height: 260rpx;
+	width: 220rpx;
+	margin-bottom: 15rpx;
+	margin-right: 20rpx;
+}
+

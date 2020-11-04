@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/search/search",
-    "pages/personal/personal"
+    "pages/personal/personal",
+    "pages/movie/movie"
   ],
   "subPackages": [],
   "window": {
@@ -36,6 +37,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap38.json"
+  "usingComponents": {}
 }
