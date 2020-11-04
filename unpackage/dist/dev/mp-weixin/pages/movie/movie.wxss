@@ -101,6 +101,48 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*视频播放*/
 .movie{
 	display: -webkit-box;
@@ -183,8 +225,8 @@
 	margin-right: 40rpx;
 }
 /*剧情简介*/
-.plot,.actorList{
-	padding:20rpx;
+.plot,.actorList,.stage{
+	padding:0 20rpx 20rpx 20rpx;
 	background-color: #f7f4f8;
 }
 .title{
@@ -194,12 +236,12 @@
 .movieGroup{
 	margin-top:10rpx;
 }
-.movieGroup .photoItem .photo{
+.movieGroup .photoItem .photo,.stagePhoto{
 	height: 300rpx;
 	width: 200rpx;
 	margin-right: 20rpx;
 }
-.movieGroup .photoList{
+.movieGroup .photoList,.stageList{
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -216,4 +258,5 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+/*剧照*/
 

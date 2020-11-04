@@ -38,15 +38,27 @@
 			<view class="title">演职人员</view>
 			<scroll-view class="movieGroup" scroll-x="true">
 				<view class="photoList">
-					<view class="photoItem" v-for="directorItem in directorList" :key="directorItem.staffId">
-						<image class="photo" :src="directorItem.photo"></image>
+					<view class="photoItem" v-for="(directorItem,directorIndex) in directorList" :key="directorItem.staffId">
+						<image class="photo" :src="directorItem.photo" :data-photoIndex="directorIndex" @click="previewActorsPhoto"></image>
 						<view class="actName">{{directorItem.actName}}</view>
 						<view class="name">{{directorItem.name}}</view>
 					</view>
-					<view class="photoItem" v-for="actorItem in actorList" :key="actorItem.staffId">
-						<image class="photo" :src="actorItem.photo"></image>
+					<view class="photoItem" v-for="(actorItem,actorIndex) in actorList"  :key="actorItem.staffId">
+						<image class="photo" :src="actorItem.photo" :data-photoIndex="actorIndex + directorList.length" @click="previewActorsPhoto"></image>
 						<view class="actName">{{actorItem.actName}}</view>
 						<view class="name">{{actorItem.name}}</view>
+					</view>
+				</view>
+			</scroll-view>
+		</view>
+		<Separator></Separator>
+		<!--剧照-->
+		<view class="stage">
+			<view class="title">剧照</view>
+			<scroll-view scroll-x="true">
+				<view class="stageList">
+					<view class="stageItem" v-for="(plotPicItem,plotPicIndex) in plotPics" :key="plotPicIndex">
+						<image class="stagePhoto" mode="aspectFill" :data-plotpicIndex="plotPicIndex" :src="plotPicItem" @click="previewStagePhoto"></image>
 					</view>
 				</view>
 			</scroll-view>
@@ -69,6 +81,9 @@
 				trailerInfo:[],
 				actorList:[],
 				directorList:[],
+				trailerDetail:[],
+				plotPics:[],
+				photoList:[],
 			}
 		},
 		onLoad(options){
@@ -80,6 +95,7 @@
 			this.getCurrentTrailer();
 			this.getActors();
 			this.getDirector();
+			this.getTrailerDetail();
 		},
 		methods:{
 			async getCurrentTrailer(){
@@ -95,6 +111,32 @@
 				const res=await request(`/search/staff/${this.currentTrailer}/1?qq=2622870670`,"POST");
 				this.directorList=res.data;
 				console.log(res.data);
+			},
+			async getTrailerDetail(){
+				const res=await request(`/search/trailer/${this.currentTrailer}?qq=2622870670`,"POST");
+				this.trailerDetail=res.data;
+				if(this.trailerDetail.plotPics){
+					this.plotPics=JSON.parse(this.trailerDetail.plotPics);
+				}
+			},
+			previewStagePhoto(e){
+				let currentIndex=parseInt(e.currentTarget.dataset.plotpicindex);
+				uni.previewImage({
+					current:currentIndex,
+					urls:this.plotPics
+				})
+			},
+			previewActorsPhoto(e){
+				if(this.actorList){
+					let allList=this.directorList.concat(this.actorList);
+					let photoList=[];
+					let currentIndex=parseInt(e.currentTarget.dataset.photoindex);
+					allList.forEach(item=>photoList.push(item.photo));
+					uni.previewImage({
+						current:currentIndex,
+						urls:photoList
+					})
+				}
 			}
 		},
 }
@@ -162,8 +204,8 @@
 	margin-right: 40upx;
 }
 /*剧情简介*/
-.plot,.actorList{
-	padding:20upx;
+.plot,.actorList,.stage{
+	padding:0 20upx 20upx 20upx;
 	background-color: #f7f4f8;
 }
 .title{
@@ -174,12 +216,12 @@
 	margin-top:10upx;
 }
 
-.movieGroup .photoItem .photo{
+.movieGroup .photoItem .photo,.stagePhoto{
 	height: 300upx;
 	width: 200upx;
 	margin-right: 20upx;
 }
-.movieGroup .photoList{
+.movieGroup .photoList,.stageList{
 	display: flex;
 }
 
@@ -195,4 +237,5 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+/*剧照*/
 </style>
